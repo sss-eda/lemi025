@@ -1,15 +1,22 @@
 package main
 
+import (
+	"log"
+	"net/http"
+
+	"github.com/sss-eda/lemi025"
+)
+
 func main() {
-	// driver, err := serial.NewDriver(context.Background(), serial.Config{
-	// 	Name: "/dev/ttyUSB0",
-	// 	Baud: 115200,
-	// })
-	// if err != nil {
-	// 	log.Fatal(err)
-	// }
+	tx := serial.NewTransmitter()
+	rx := serial.NewReceiver()
 
-	// server, err := rest.NewServer(driver)
+	connection := lemi025.Connect(&lemi025.Config{
+		Transceiver: tx,
+		Recevier:    rx,
+	})
 
-	// server.Run()
+	api := rest.NewAPI(connection)
+
+	log.Fatal(http.ListenAndServe(":8080", api))
 }
