@@ -1,12 +1,9 @@
 package lemi025
 
-// ConfigReader TODO
-type ConfigReader interface {
+// API - Interface of a LEMI025 API. This can be through NATS, REST, serial,
+// etc. Write adapters for those.
+type API interface {
 	ReadConfig(ReadConfigCommand) error
-}
-
-type Driver interface {
-	ConfigReader
 	ReadTime(ReadTimeCommand) error
 	SetTime(SetTimeCommand) error
 	SetCoefficients1(SetCoefficients1Command) error

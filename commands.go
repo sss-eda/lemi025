@@ -4,6 +4,10 @@ type Command interface{}
 
 type ReadConfigCommand struct{}
 
+type ConfigReader interface {
+	ReadConfig(ReadConfigCommand) error
+}
+
 type ReadTimeCommand struct{}
 
 type SetTimeCommand struct {

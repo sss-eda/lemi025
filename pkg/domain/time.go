@@ -9,31 +9,31 @@ type Time struct {
 	second uint8
 }
 
-type TimeReader interface {
-	ReadTime() error
-}
+// type TimeReader interface {
+// 	ReadTime() error
+// }
 
-func (time *Time) Read(
-	reader TimeReader,
-	command ReadTimeCommand,
-) error {
-	return reader.ReadTime()
-}
+// func (time *Time) Read(
+// 	reader TimeReader,
+// 	command ReadTimeCommand,
+// ) error {
+// 	return reader.ReadTime()
+// }
 
-type TimeSetter interface {
-	SetTime(year uint16, month, day, hour, minute, second uint8) error
-}
+// type TimeSetter interface {
+// 	SetTime(year uint16, month, day, hour, minute, second uint8) error
+// }
 
-func (time *Time) Set(
-	setter TimeSetter,
-	command SetTimeCommand,
-) error {
-	return setter.SetTime(
-		command.Year,
-		command.Month,
-		command.Day,
-		command.Hour,
-		command.Minute,
-		command.Second,
-	)
-}
+// func (time *Time) Set(
+// 	setter TimeSetter,
+// 	command SetTimeCommand,
+// ) error {
+// 	return setter.SetTime(
+// 		command.Year,
+// 		command.Month,
+// 		command.Day,
+// 		command.Hour,
+// 		command.Minute,
+// 		command.Second,
+// 	)
+// }
