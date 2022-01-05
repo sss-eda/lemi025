@@ -1,7 +1,8 @@
 package lemi025
 
+// Event TODO
 type Event interface {
-	Type() string
+	Data() []byte
 }
 
 type DataFrameAcquiredEvent struct {
@@ -32,10 +33,10 @@ type DataFrameAcquiredEvent struct {
 	checksum   byte
 }
 
-// Type TODO
-func (event *DataFrameAcquiredEvent) Type() string {
-	return "DataFrameAcquired"
-}
+// // Type TODO
+// func (event *DataFrameAcquiredEvent) Type() string {
+// 	return "DataFrameAcquired"
+// }
 
 type ConfigReadEvent struct {
 	stationNumber uint8

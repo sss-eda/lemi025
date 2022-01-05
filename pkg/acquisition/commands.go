@@ -1,12 +1,4 @@
-package lemi025
-
-type Command interface{}
-
-type ReadConfigCommand struct{}
-
-type ConfigReader interface {
-	ReadConfig(ReadConfigCommand) error
-}
+package acquisition
 
 type ReadTimeCommand struct{}
 
