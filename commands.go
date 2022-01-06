@@ -1,4 +1,4 @@
-package acquisition
+package lemi025
 
 type ReadTimeCommand struct{}
 

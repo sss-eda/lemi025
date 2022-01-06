@@ -1,8 +1,7 @@
 package main
 
 import (
-	"github.com/sss-eda/lemi025"
-	"github.com/sss-eda/lemi025/pkg/gpio"
+	"net/http"
 
 	"github.com/tarm/serial"
 )
@@ -12,21 +11,20 @@ func main() {
 		Name: "COM6",
 		Baud: 115200,
 	})
-	connection, _ := gpio.Connect(port)
+	// connection, _ := gpio.Connect(port)
 
-	readConfigCommand := lemi025.ReadConfig(connection)
-	readTimeCommand := lemi025.ReadTime(connection)
+	config := lemi025.NewConfig()
+	readConfigCommand := gpio.NewReadConfigCommand(port, config) // gets invoked by a lemi025, the client is NATS or CLI or HTTP/REST or whatever
 
-	api.Serve(readConfigCommand)
+	time := lemi025.NewTime()
+	readTimeCommand := gpio.NewReadTimeCommand(port, time)
+	setTimeCommand := gpio.NewSetTimeCommand(port, time)
 
-	// lemi025.Drive(connection, driver)     // the serial driver
-	// lemi025.Observe(connection, observer) // the nats publisher
+	driver := driving.New(
+		readConfigCommand,
+		ReadTimeCommand,
+		SetTimeCommand,
+	)
 
-	// commander, _ := gpio.NewCommander(connection)
-
-	// observer := &nats.Observer{}
-
-	// driver, _ := gpio.NewDriver(connection)
-	// driver.Drive(observer)
-
+	driver.Serve(http.Server{})
 }

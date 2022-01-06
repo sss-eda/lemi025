@@ -1,9 +1,9 @@
 package lemi025
 
 // Command TODO
-// type Command interface {
-// 	Execute() error
-// }
+type Command interface {
+	Execute() error
+}
 
 // Receiver: The connection to the lemi
 

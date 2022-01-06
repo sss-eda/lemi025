@@ -1,9 +1,17 @@
 package lemi025
 
+// EventType TODO
+type EventType int
+
+const (
+	// TimeRead TODO
+	TimeRead EventType = iota
+	// TimeSet TODO
+	TimeSet
+)
+
 // Event TODO
-type Event interface {
-	Data() []byte
-}
+type Event interface{}
 
 type DataFrameAcquiredEvent struct {
 	stationNumber uint8

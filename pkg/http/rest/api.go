@@ -1,26 +1,29 @@
 package rest
 
 import (
+	"encoding/json"
 	"net/http"
 
-	"github.com/sss-eda/lemi025"
+	"github.com/sss-eda/lemi025/pkg/driving"
 )
 
 // API TODO
 type API struct {
-	Connection *lemi025.Connection
+	driver  *driving.Service
+	devices map[string]*driving.Device
 }
 
-func (api *API) getData(
+// ReadConfig TODO
+func (api *API) ReadConfig(
 	w http.ResponseWriter,
 	r *http.Request,
 ) {
-	api.Subscribe(lemi025.DataFrameAcquiredEvent)
-}
+	request := ReadConfigRequest{}
+	json.NewDecoder(r.Body).Decode(&request)
 
-func (api *API) readTime(
-	w http.ResponseWriter,
-	r *http.Request,
-) {
-	api.Connection.ReadTime(&lemi025.ReadTimeCommand{})
+	// Load device
+	// api.devices.Load(request.DeviceID)
+	device := api.devices[request.DeviceID]
+
+	api.driver.ReadConfig(device)
 }
