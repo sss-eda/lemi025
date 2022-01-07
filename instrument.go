@@ -1,12 +1,37 @@
 package lemi025
 
-import "time"
+// Instrument TODO
+type Instrument struct {
+	readConfigCommand *driving.ReadConfigCommand
+	readTimeCommand   *driving.ReadTimeCommand
+	setTimeCommand    *driving.SetTimeCommand
+}
 
-// LEMI025 TODO
-type LEMI025 interface {
-	ReadConfig() error
-	ReadTime() error
-	SetTime(time.Time) error
+// Drive TODO - Then in the driving repo/context we will have an interface:
+// type Driver interface{
+//     Drive()
+// }
+// type Instrument interface{
+//     Driver
+//     Observer
+// }
+func (instrument *Instrument) Drive() error {
+
+}
+
+// ReadConfig TODO
+func (instrument *Instrument) ReadConfig() error {
+	return instrument.readConfigCommand.Execute()
+}
+
+// ReadTime TODO
+func (instrument *Instrument) ReadTime() error {
+	return instrument.readTimeCommand.Execute()
+}
+
+// SetTime TODO
+func (instrument *Instrument) SetTime() error {
+	return instrument.setTimeCommand.Execute()
 }
 
 // type LEMI025 struct {

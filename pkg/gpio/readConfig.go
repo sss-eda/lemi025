@@ -1,23 +1,17 @@
 package gpio
 
-import (
-	"io"
+// // ReadConfigCommand TODO
+// type ReadConfigCommand struct {
+// 	io.Writer
+// 	*driving.Config
+// }
 
-	"github.com/sss-eda/lemi025/pkg/driving"
-)
+// // Execute TODO
+// func (command *ReadConfigCommand) Execute() error {
+// 	_, err := command.Write([]byte{0x3D, 0x30})
+// 	if err != nil {
+// 		return err
+// 	}
 
-// ReadConfigCommand TODO
-type ReadConfigCommand struct {
-	writer io.Writer
-	config *driving.Config
-}
-
-// Execute TODO
-func (command *ReadConfigCommand) Execute() error {
-	_, err := command.writer.Write([]byte{0x3D, 0x30})
-	if err != nil {
-		return err
-	}
-
-	return nil
-}
+// 	return nil
+// }

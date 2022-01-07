@@ -1,4 +1,4 @@
-package driving
+package instrumentation
 
 import "github.com/sss-eda/lemi025"
 
@@ -9,16 +9,8 @@ type Service struct {
 	setTimeCommand    lemi025.Command
 }
 
-// CommandFactory TODO
-type CommandFactory interface {
-	NewReadConfigCommand(*Device) lemi025.Command
-	NewReadTimeCommand(*Device) lemi025.Command
-	NewSetTimeCommand(*Device) lemi025.Command
-}
-
 // NewService TODO
 func NewService(
-	commandFactory CommandFactory,
 	device *Device,
 ) *Service {
 	service := &Service{
@@ -26,6 +18,10 @@ func NewService(
 		readTimeCommand:   commandFactory.NewReadTimeCommand(device),
 		setTimeCommand:    commandFactory.NewSetTimeCommand(device),
 	}
+
+	events := make(chan []byte)
+
+	sub := ReadConfigEvent.Subscribe(events)
 
 	return service
 }
