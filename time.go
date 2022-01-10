@@ -4,8 +4,6 @@ package lemi025
 //   * Having the setter and reader only makes sense in the
 //     "DRIVING"/"CONTROLLING"/"COMMANDING" context
 type Time struct {
-	reader Command
-	setter Command
 	sync   bool
 	Year   uint16 `json:"year"`
 	Month  uint8  `json:"month"`
@@ -16,14 +14,9 @@ type Time struct {
 }
 
 // NewTime TODO
-func NewTime(
-	timeReader Command,
-	timeSetter Command,
-) *Time {
+func NewTime() *Time {
 	time := &Time{
-		reader: timeReader,
-		setter: timeSetter,
-		sync:   true,
+		sync: false,
 	}
 
 	// go func() {
@@ -42,34 +35,15 @@ func NewTime(
 	return time
 }
 
-// Read TODO
-func (time *Time) Read() error {
-	err := time.reader.Execute()
-	if err != nil {
-		return err
-	}
-
-	time.sync = false
+// Sync TODO
+func (time *Time) Sync() error {
+	time.sync = true
 
 	return nil
 }
 
-// Set TODO
-func (time *Time) Set() error {
-	// The set-time command only works when device is not recording. Return an
-	// error in such a case.
-	// if device.IsRecording() {
-	// 	return fmt.Errorf("cannot set time while device is recording")
-	// }
-
-	err := time.setter.Execute()
-	if err != nil {
-		return err
-	}
-
-	// If the command was sent successfully, set the sync state of the device's
-	// time to false. When the device hears back from the lemi, it will be
-	// returned to a synchronised state.
+// Read TODO
+func (time *Time) Desync() error {
 	time.sync = false
 
 	return nil
