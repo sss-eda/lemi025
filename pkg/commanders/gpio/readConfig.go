@@ -19,5 +19,13 @@ func (command *ReadConfigCommand) Execute() error {
 		return err
 	}
 
+	command.Config.Lock()
+	defer command.Config.Unlock()
+
+	err = command.Config.Desync()
+	if err != nil {
+		return err
+	}
+
 	return nil
 }

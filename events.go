@@ -46,8 +46,21 @@ type DataFrameAcquiredEvent struct {
 // 	return "DataFrameAcquired"
 // }
 
+// ConfigReadEvent TODO
 type ConfigReadEvent struct {
-	stationNumber uint8
+	StationNumber uint8 `json:"stationNumber"`
+}
+
+// ConfigReadEventHandler TODO
+type ConfigReadEventHandler interface {
+	OnConfigRead(*ConfigReadEvent)
+}
+
+// Handle TODO
+func (event *ConfigReadEvent) Handle(
+	handler ConfigReadEventHandler,
+) {
+	handler.OnConfigRead(event)
 }
 
 type TimeReadEvent struct {

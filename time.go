@@ -4,19 +4,19 @@ package lemi025
 //   * Having the setter and reader only makes sense in the
 //     "DRIVING"/"CONTROLLING"/"COMMANDING" context
 type Time struct {
-	sync   bool
-	Year   uint16 `json:"year"`
-	Month  uint8  `json:"month"`
-	Day    uint8  `json:"day"`
-	Hour   uint8  `json:"hour"`
-	Minute uint8  `json:"minute"`
-	Second uint8  `json:"second"`
+	syncStatus bool
+	Year       uint16 `json:"year"`
+	Month      uint8  `json:"month"`
+	Day        uint8  `json:"day"`
+	Hour       uint8  `json:"hour"`
+	Minute     uint8  `json:"minute"`
+	Second     uint8  `json:"second"`
 }
 
 // NewTime TODO
 func NewTime() *Time {
 	time := &Time{
-		sync: false,
+		syncStatus: false,
 	}
 
 	// go func() {
@@ -37,14 +37,14 @@ func NewTime() *Time {
 
 // Sync TODO
 func (time *Time) Sync() error {
-	time.sync = true
+	time.syncStatus = true
 
 	return nil
 }
 
 // Read TODO
 func (time *Time) Desync() error {
-	time.sync = false
+	time.syncStatus = false
 
 	return nil
 }
