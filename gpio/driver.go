@@ -18,12 +18,6 @@ type state interface {
 	next(byte) state
 }
 
-// const (
-// 	idle state = iota
-// 	data
-// 	response
-// )
-
 // NewDriver TODO
 func NewDriver(
 	ctx context.Context,
