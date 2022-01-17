@@ -1,0 +1,126 @@
+input ReadConfigInput {}
+
+input ReadTimeInput {}
+
+input SetTimeInput {
+    year: Int
+    month: Int
+    day: Int
+    hour: Int
+    minute: Int
+    second: Int
+}
+
+input SetCoefficients1Input {
+    av: AV
+    mode: Mode
+}
+
+interface Event {}
+
+type ConfigReadEvent implements Event {
+    sn: SN
+}
+
+type TimeReadEvent implements Event {
+    year: Year
+    month: Month
+    day: Day
+    hour: Hour
+    minute: Minute
+    second: Second
+}
+
+type TimeSetEvent implements Event {
+    year: Year
+    month: Month
+    day: Day
+    hour: Hour
+    minute: Minute
+    second: Second
+}
+
+type Coefficients1SetEvent implements Event {
+    av: AV
+    mode: Mode
+}
+
+type Coefficients1ReadEvent implements Event {
+    av: AV
+    mode1: Mode
+    uin: Uin
+    mode2: Mode
+}
+
+type Coefficients2SetEvent implements Event {}
+
+type Coefficients2ReadEvent implements Event {
+    ax1: Float
+    ay1: Float
+    az1: Float
+    ax2: Float
+    ay2: Float
+    az2: Float
+    kxy: Float
+    kyz: Float
+    kxz: Float
+    ke1: Float
+    ke2: Float
+    ke3: Float
+    ke4: Float
+    k1x: Float
+    k1y: Float
+    k1z: Float
+    k2x: Float
+    k2y: Float
+    k2z: Float
+    ktf: Float
+    kte: Float
+    ktf0: Float
+    kte0: Float
+    kvbat: Float
+    l1: Int
+    l2: Int
+    l3: Int
+    l4: Int
+}
+
+type GPSDataReadEvent implements Event {
+    latitude: Latitude
+    longitude: Longitude
+    altitude: Altitude
+}
+
+type RecordingStartedEvent implements Event {}
+
+type FLASHCheckedEvent implements Event {
+    size: Int
+    free: Int
+}
+
+type Mutation {
+    readConfig(ReadConfigInput): Boolean
+    readTime(ReadTimeInput): Boolean
+    setTime(SetTimeInput): Boolean
+    setCoefficients1(SetCoefficients1Input): Boolean
+    readCoefficients1(ReadCoefficients1Input): Boolean
+    setCoefficients2(SetCoefficients2Input): Boolean
+    readCoefficients2(ReadCoefficients2Input): Boolean
+    readGPSData(ReadGPSDataInput): Boolean
+    stopRecording(StopRecordingInput): Boolean
+    startRecording(StartRecordingInput): Boolean
+    checkFLASH(CheckFLASHInput): Boolean
+}
+
+type Subscription {
+    configRead: ConfigReadEvent
+    timeRead: TimeReadEvent
+    timeSet: TimeSetEvent
+    coefficients1Set: Coefficients1SetEvent
+    coefficients1Read: Coefficients1ReadEvent
+    coefficients2Set: Coefficients2SetEvent
+    coefficients2Read: Coefficients2ReadEvent
+    gpsDataRead: GPSDataReadEvent
+    recordingStarted: RecordingStartedEvent
+    flashChecked: FLASHCheckedEvent
+}
