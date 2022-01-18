@@ -1,3 +1,7 @@
+# Why GraphQL is not the right thing here:
+#   - This is a CLIENT and it has no external access
+#   - 
+
 input ReadConfigInput {}
 
 input ReadTimeInput {}
@@ -113,6 +117,7 @@ type Mutation {
 }
 
 type Subscription {
+    datumAcquired: DatumAcquiredEvent
     configRead: ConfigReadEvent
     timeRead: TimeReadEvent
     timeSet: TimeSetEvent
