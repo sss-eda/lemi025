@@ -2,33 +2,31 @@ package nats
 
 import (
 	"encoding/json"
+	"log"
 
 	"github.com/nats-io/nats.go"
+	"github.com/sss-eda/lemi025"
 )
 
 // ReadConfigRequest TODO
-type ReadConfigRequest struct {
-	ID string `json:"id"`
-}
+type ReadConfigRequest struct{}
 
 // ReadConfigResponse TODO
 type ReadConfigResponse struct{}
 
-// ReadConfig TODO
-func readConfig(
-	nc *nats.Conn,
-	id string,
-) error {
-	request := ReadConfigRequest{
-		ID: id,
+// ReadConfigAdapter TODO
+func ReadConfigAdapter(strategy lemi025.ReadConfigStrategy) func(*nats.Msg) {
+	return func(msg *nats.Msg) {
+		request := ReadConfigRequest{}
+		err := json.Unmarshal(msg.Data, &request)
+		if err != nil {
+			log.Println(err)
+			return
+		}
+		err = strategy(lemi025.ReadConfigInput{})
+		if err != nil {
+			log.Println(err)
+			return
+		}
 	}
-	data, err := json.Marshal(request)
-	if err != nil {
-		return err
-	}
-	err = nc.Publish("LEMI025."+id, data)
-	if err != nil {
-		return err
-	}
-	return nil
 }
