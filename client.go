@@ -11,15 +11,16 @@ func New() (*Client, error) {
 	return &Client{}, nil
 }
 
-type DriveClientStrategy interface [
+// ListeningStrategy TODO
+type ListeningStrategy interface {
 	OnConfigRead()
 	OnTimeRead()
 	OnTimeSet()
-]
+}
 
 // Drive TODO
-func (client *Client) Drive(
-	strategy DriveClientStrategy,
-) DriveClientStrategy {
-	return 
-}
+// func (client *Client) Drive(
+// 	strategy DriveClientStrategy,
+// ) DriveClientStrategy {
+// 	return
+// }
