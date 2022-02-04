@@ -17,3 +17,15 @@ func ReadConfig(w io.Writer) func(lemi025.ReadConfigInput) error {
 		return nil
 	}
 }
+
+// OnConfigRead TODO
+func OnConfigRead(
+	strategy lemi025.OnConfigReadStrategy,
+) func([5]byte) {
+	return func(input [5]byte) {
+		if string(input[:4]) != "L025 " {
+			log.Printf("invalid input. Expexted L025, got: %s", input[:4])
+		}
+
+	}
+}

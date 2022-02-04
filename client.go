@@ -13,9 +13,25 @@ func New() (*Client, error) {
 
 // ListeningStrategy TODO
 type ListeningStrategy interface {
-	OnConfigRead()
+	OnConfigRead(OnConfigReadInput)
 	OnTimeRead()
 	OnTimeSet()
+}
+
+// OnConfigReadInput TODo
+type OnConfigReadInput struct {
+	StationType   string
+	StationNumber uint8
+}
+
+// OnTimeReadInput TODO
+type OnTimeReadInput struct {
+	Year   uint16
+	Month  uint8
+	Day    uint8
+	Hour   uint8
+	Minute uint8
+	Second uint8
 }
 
 // Drive TODO
