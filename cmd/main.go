@@ -40,22 +40,31 @@ func main() {
 	id := os.Getenv("INSTRUMENT_ID")
 
 	// Maybe send the strategies in here already?
-	client, err := lemi025.New()
+	// client, err := lemi025.New()
+	// if err != nil {
+	// 	log.Fatal(err)
+	// }
+
+	// serial.Drive(
+	// 	port,
+	// 	client.Drive(
+	// 		nats.DriveClient(js),
+	// 	),
+	// )
+
+	instrument, err := lemi025.New()
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	serial.Drive(
-		port,
-		client.Drive(
-			nats.DriveClient(js),
-		),
-	)
-
 	// Handle usecase: ReadConfig
 	readConfigSub, err := js.Subscribe(
 		strings.Join([]string{"lemi025", id, "config", "read"}, "."),
-		nats.ReadConfigAdapter(client.Config.Read(serial.ReadConfig(port))),
+		nats.ReadConfigCommandMsgHandler(
+			instrument.Config.Read(
+				serial.ReadConfig(port),
+			),
+		),
 	)
 	if err != nil {
 		log.Fatal(err)
@@ -65,7 +74,7 @@ func main() {
 	// Handle usecase: ReadTime
 	readTimeSub, err := js.Subscribe(
 		strings.Join([]string{"lemi025", id, "time", "read"}, "."),
-		nats.ReadTimeAdapter(client.Time.Read(serial.ReadTime(port))),
+		nats.ReadTimeCommandMsgHandler(instrument.Time.Read(serial.ReadTime(port))),
 	)
 	if err != nil {
 		log.Fatal(err)

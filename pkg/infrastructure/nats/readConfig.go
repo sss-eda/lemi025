@@ -12,10 +12,14 @@ import (
 type ReadConfigRequest struct{}
 
 // ReadConfigResponse TODO
-type ReadConfigResponse struct{}
+type ReadConfigResponse struct {
+	StationNumber uint8 `json:"stationNumber"`
+}
 
-// ReadConfigAdapter TODO
-func ReadConfigAdapter(strategy lemi025.ReadConfigStrategy) func(*nats.Msg) {
+// ReadConfigCommandHandler TODO
+func ReadConfigCommandMsgHandler(
+	strategy lemi025.ReadConfigStrategy,
+) func(*nats.Msg) {
 	return func(msg *nats.Msg) {
 		request := ReadConfigRequest{}
 		err := json.Unmarshal(msg.Data, &request)
@@ -23,7 +27,7 @@ func ReadConfigAdapter(strategy lemi025.ReadConfigStrategy) func(*nats.Msg) {
 			log.Println(err)
 			return
 		}
-		err = strategy(lemi025.ReadConfigInput{})
+		err = strategy(lemi025.ReadConfigCommand{})
 		if err != nil {
 			log.Println(err)
 			return

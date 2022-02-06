@@ -8,11 +8,8 @@ import (
 	"github.com/sss-eda/lemi025"
 )
 
-// ReadTimeRequest TODO
-type ReadTimeRequest struct{}
-
-// ReadTimeResponse TODO
-type ReadTimeResponse struct {
+// SetTimeRequest TODO
+type SetTimeRequest struct {
 	Year   uint16 `json:"year"`
 	Month  uint8  `json:"month"`
 	Day    uint8  `json:"day"`
@@ -21,9 +18,12 @@ type ReadTimeResponse struct {
 	Second uint8  `json:"second"`
 }
 
-// ReadTimeAdapter TODO - Here we actually shouldn't be sending the strategy itself. It should be an application level wrapper around the strategy? Because the application is where the validation will happen. Now it can be bypassed and serial can be directly injected into nats.
-func ReadTimeCommandMsgHandler(
-	strategy lemi025.ReadTimeStrategy,
+// SetTimeResponse TODO
+type SetTimeResponse struct{}
+
+// SetTimeCommandMsgHandler TODO - Here we actually shouldn't be sending the strategy itself. It should be an application level wrapper around the strategy? Because the application is where the validation will happen. Now it can be bypassed and serial can be directly injected into nats.
+func SetTimeCommandMsgHandler(
+	strategy lemi025.SetTimeStrategy,
 ) func(*nats.Msg) {
 	return func(msg *nats.Msg) {
 		request := ReadTimeRequest{}
@@ -32,7 +32,7 @@ func ReadTimeCommandMsgHandler(
 			log.Println(err)
 			return
 		}
-		err = strategy(lemi025.ReadTimeCommand{})
+		err = strategy(lemi025.SetTimeCommand{})
 		if err != nil {
 			log.Println(err)
 			return
