@@ -16,7 +16,7 @@ type ReadTimeCommand struct{}
 // ReadTimeStrategy TODO
 type ReadTimeStrategy func(ReadTimeCommand) error
 
-// Read TODO
+// Read TODO - This is in the problem
 func (time *Time) Read(
 	strategy ReadTimeStrategy,
 ) func(ReadTimeCommand) error {

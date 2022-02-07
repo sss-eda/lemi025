@@ -39,24 +39,6 @@ func main() {
 	// Read Instrument ID from the environment
 	id := os.Getenv("INSTRUMENT_ID")
 
-	// Maybe send the strategies in here already?
-	// client, err := lemi025.New()
-	// if err != nil {
-	// 	log.Fatal(err)
-	// }
-
-	// serial.Drive(
-	// 	port,
-	// 	client.Drive(
-	// 		nats.DriveClient(js),
-	// 	),
-	// )
-
-	instrument, err := lemi025.New()
-	if err != nil {
-		log.Fatal(err)
-	}
-
 	// Handle usecase: ReadConfig
 	readConfigSub, err := js.Subscribe(
 		strings.Join([]string{"lemi025", id, "config", "read"}, "."),

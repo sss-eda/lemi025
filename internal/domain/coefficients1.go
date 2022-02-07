@@ -1,17 +1,24 @@
 package domain
 
+// Mode TODO
 type Mode int
 
 const (
+	// FLASH TODO
 	FLASH Mode = iota
+	// PC TODO
 	PC
+	// FLASHandPC TODO
 	FLASHandPC
 )
 
+// Mode1 TODO
 type Mode1 int
 
 const (
+	// MENU TODO
 	MENU Mode1 = iota
+	// RECORDING TODO
 	RECORDING
 )
 

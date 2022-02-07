@@ -5,9 +5,6 @@ type Config struct {
 	StationNumber uint8
 }
 
-// ReadConfigCommand TODO
-type ReadConfigCommand struct{}
-
 // ReadConfigStrategy TODO
 type ReadConfigStrategy func(ReadConfigCommand) error
 
@@ -20,7 +17,7 @@ func (config *Config) Read(
 	}
 }
 
-// ReadConfigResponse TODO
+// ConfigReadEvent TODO
 type ConfigReadEvent struct {
 	StationNumber uint8
 }

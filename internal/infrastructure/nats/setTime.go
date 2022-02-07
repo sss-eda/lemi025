@@ -6,6 +6,7 @@ import (
 
 	"github.com/nats-io/nats.go"
 	"github.com/sss-eda/lemi025"
+	"github.com/sss-eda/lemi025/internal/domain"
 )
 
 // SetTimeRequest TODO
@@ -23,7 +24,7 @@ type SetTimeResponse struct{}
 
 // SetTimeCommandMsgHandler TODO - Here we actually shouldn't be sending the strategy itself. It should be an application level wrapper around the strategy? Because the application is where the validation will happen. Now it can be bypassed and serial can be directly injected into nats.
 func SetTimeCommandMsgHandler(
-	strategy lemi025.SetTimeStrategy,
+	strategy domain.SetTimeStrategy,
 ) func(*nats.Msg) {
 	return func(msg *nats.Msg) {
 		request := ReadTimeRequest{}

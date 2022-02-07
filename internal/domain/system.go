@@ -1,11 +1,24 @@
 package domain
 
+// System TODO
 type System bool
 
-type StopSystemCommand struct{}
+// StopSystemInput TODO
+type StopSystemInput struct{}
 
-func (system *System) Stop() {}
+// Stop TODO
+func (system *System) Stop(
+	input StopSystemInput,
+) error {
+	return nil
+}
 
-type StartSystemCommand struct{}
+// StartSystemInput TODO
+type StartSystemInput struct{}
 
-func (system *System) Start() {}
+// Start TODO
+func (system *System) Start(
+	input StartSystemInput,
+) error {
+	return nil
+}

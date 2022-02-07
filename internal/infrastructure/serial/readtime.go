@@ -17,3 +17,5 @@ func ReadTime(w io.Writer) func(domain.ReadTimeCommand) error {
 		return nil
 	}
 }
+
+func OnTimeRead([6]byte) func()
