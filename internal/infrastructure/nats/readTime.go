@@ -4,8 +4,7 @@ import (
 	"encoding/json"
 	"log"
 
-	"github.com/nats-io/nats.go"
-	"github.com/sss-eda/lemi025"
+	"github.com/nats-io/go-nats"
 )
 
 // ReadTimeRequest TODO

@@ -1,27 +1,41 @@
 package application
 
-// Application TODO
-type Application struct {
-	Mutations     Mutations
-	Queries       Queries
-	Subscriptions Subscriptions
+type CommandType int
+
+const (
+	ReadConfig CommandType = iota
+	ReadTime
+	SetTime
+)
+
+// Command TODO
+type Command interface {
+	Type() CommandType
+	Payload() []byte
 }
 
-// Mutations TODO
-type Mutations struct {
-	ReadConfig mutation.ReadConfigHandler
-	ReadTime   mutation.ReadTimeHandler
-	SetTime    mutation.SetTimeHandler
-}
+// // Application TODO
+// type Application struct {
+// 	Mutations     Mutations
+// 	Queries       Queries
+// 	Subscriptions Subscriptions
+// }
 
-// Queries TODO
-type Queries struct {
-}
+// // Mutations TODO
+// type Mutations struct {
+// 	ReadConfig mutation.ReadConfigHandler
+// 	ReadTime   mutation.ReadTimeHandler
+// 	SetTime    mutation.SetTimeHandler
+// }
 
-// Subscriptions TODO
-type Subscriptions struct {
-	Data       event.Data
-	ConfigRead event.ConfigRead
-	TimeRead   event.TimeRead
-	TimeSet    event.TimeSet
-}
+// // Queries TODO
+// type Queries struct {
+// }
+
+// // Subscriptions TODO
+// type Subscriptions struct {
+// 	Data       event.Data
+// 	ConfigRead event.ConfigRead
+// 	TimeRead   event.TimeRead
+// 	TimeSet    event.TimeSet
+// }
