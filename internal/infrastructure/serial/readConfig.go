@@ -3,17 +3,22 @@ package serial
 import (
 	"io"
 
-	"github.com/sss-eda/lemi025/internal/domain"
+	"github.com/sss-eda/lemi025/internal/application"
 )
 
-// ReadConfig TODO
-func ReadConfig(w io.Writer) func(domain.ReadConfigCommand) error {
-	return func(command domain.ReadConfigCommand) error {
-		_, err := w.Write([]byte{0x3D, 0x30, 0xFF, 0xFF})
+// ReadConfig TODO - We may depend on the application layer,
+// because we are now in the infrastructure layer!
+func ReadConfig(
+	w io.Writer,
+) func(application.ReadConfigRequest) (application.ReadConfigResponse, error) {
+	return func(
+		request application.ReadConfigRequest,
+	) (application.ReadConfigResponse, error) {
+		_, err := w.Write([]byte{0x3D, 0x30})
 		if err != nil {
-			return err
+			return application.ReadConfigResponse{}, err
 		}
 
-		return nil
+		return application.ReadConfigResponse{}, nil
 	}
 }
