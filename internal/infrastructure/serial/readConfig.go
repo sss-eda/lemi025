@@ -4,13 +4,14 @@ import (
 	"io"
 
 	"github.com/sss-eda/lemi025/internal/application"
+	"github.com/sss-eda/lemi025/internal/application/readconfig"
 )
 
 // ReadConfig TODO - We may depend on the application layer,
 // because we are now in the infrastructure layer!
 func ReadConfig(
 	w io.Writer,
-) func(application.ReadConfigRequest) (application.ReadConfigResponse, error) {
+) func(readconfig.Request) (readconfig.Response, error) {
 	return func(
 		request application.ReadConfigRequest,
 	) (application.ReadConfigResponse, error) {
