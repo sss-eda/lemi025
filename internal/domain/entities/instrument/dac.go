@@ -1,4 +1,4 @@
-package domain
+package instrument
 
 // SetDACxCommand TODO
 type SetDACxCommand struct {

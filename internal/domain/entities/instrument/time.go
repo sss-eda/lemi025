@@ -1,4 +1,4 @@
-package domain
+package instrument
 
 // Time TODO
 type Time struct {

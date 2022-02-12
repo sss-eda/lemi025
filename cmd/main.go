@@ -6,7 +6,6 @@ import (
 
 	natsio "github.com/nats-io/nats.go"
 	"github.com/sss-eda/lemi025/internal/domain/usecases/getconfig"
-	"github.com/sss-eda/lemi025/internal/domain/usecases/readconfig"
 	"github.com/sss-eda/lemi025/internal/infrastructure/nats"
 	"github.com/sss-eda/lemi025/internal/infrastructure/serial"
 
@@ -39,7 +38,7 @@ func main() {
 	sub, err := nc.Subscribe(
 		"lemi025.1.queries.readconfig",
 		nats.Handle(
-			readconfig.UseCase(
+			controlling.ReadConfig(
 				serial.ConfigReader(port), // returns func() error
 			), // returns func(request) response
 			newencoding.Serializer(),

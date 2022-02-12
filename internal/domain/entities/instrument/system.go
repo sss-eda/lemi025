@@ -1,4 +1,4 @@
-package domain
+package instrument
 
 // System TODO
 type System bool

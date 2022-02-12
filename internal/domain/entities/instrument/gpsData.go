@@ -1,4 +1,4 @@
-package domain
+package instrument
 
 // GPSData TODO
 type GPSData struct {

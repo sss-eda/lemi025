@@ -1,4 +1,4 @@
-package domain
+package instrument
 
 // Coefficients2 TODO
 type Coefficients2 struct {

@@ -13,10 +13,12 @@ func UseCase(
 			return Response{}, err
 		}
 
-		err := instr.Config.Update(request.NewConfig)
+		event, err := instr.Config.Read(request.NewConfig.StationNumber)
 		if err != nil {
 			return Response{}, err
 		}
+
+		instr.Raise(event)
 
 		err = repository.Save(request.InstrumentID, instr)
 		if err != nil {

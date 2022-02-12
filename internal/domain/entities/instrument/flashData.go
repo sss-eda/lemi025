@@ -1,4 +1,4 @@
-package domain
+package instrument
 
 // FLASHData TODO
 type FLASHData struct {

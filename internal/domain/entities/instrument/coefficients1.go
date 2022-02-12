@@ -1,4 +1,4 @@
-package domain
+package instrument
 
 // Mode TODO
 type Mode int
