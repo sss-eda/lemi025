@@ -62,4 +62,4 @@ erDiagram
 
 ## Use Cases
 * GetInstrumentByID
-* ListInstruments
+* ListInstruments (GetAllInstruments?)

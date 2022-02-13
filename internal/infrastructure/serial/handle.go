@@ -12,8 +12,8 @@ import (
 // Run TODO
 func Run(
 	r io.Reader,
-	configUpdater func(updateconfig.Command) error,
-	timeUpdater func(updatetime.Command) error,
+	configReadEventer func(readconfig.Command) error,
+	readTimeEventer func(updatetime.Command) error,
 ) error {
 	scanner := bufio.NewScanner(r)
 

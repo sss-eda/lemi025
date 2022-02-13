@@ -12,6 +12,7 @@ import (
 	tarm "github.com/tarm/serial"
 )
 
+// The listing and controlling will be in two separate
 func main() {
 	nc, err := natsio.Connect("nats://sansa.dev:4222")
 	if err != nil {

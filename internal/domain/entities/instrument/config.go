@@ -2,20 +2,24 @@ package instrument
 
 // Config TODO
 type Config struct {
+	StationType   string
 	StationNumber StationNumber
 }
 
 // Update TODO
 func (config Config) Read(
+	NewStationType string,
 	NewStationNumber StationNumber,
 ) (ConfigReadEvent, error) {
 	return ConfigReadEvent{
+
 		NewStationNumber: NewStationNumber,
 	}, nil
 }
 
 // ConfigReadEvent TODO
 type ConfigReadEvent struct {
+	InstrumentID     ID
 	NewStationNumber StationNumber
 }
 
