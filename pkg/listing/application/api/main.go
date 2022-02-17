@@ -11,6 +11,13 @@ import (
 //   --> We need to have configurable structs if we want to be able to
 //       dynamically change adapters.
 
+// This API is the way for the front-end to talk to the lemi's. We'd probably
+// like for all of the different models to be served from the same endpoint,
+// so all of this will go in die /cmd directory in the end, I think.
+
+// We can still leave this main here in any case. Who knows what we might need
+// later on.
+
 func main() {
 	http.HandleFunc(
 		"lemi025/instrument/{id}", // GET method

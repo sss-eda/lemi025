@@ -11,7 +11,8 @@ Below is the design of the read model:
 erDiagram
     INSTRUMENT {}
     CONFIG {
-        int sn
+        string station-type
+        int station-number
     }
     TIME {
         int year

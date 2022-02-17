@@ -8,7 +8,7 @@ import (
 )
 
 // OnConfigRead - But this is specific to listing. And that's the way it should
-// be. Decoupled from the command side.
+// be. Decoupled from the command side. Keep in local infrastructure.
 func OnConfigRead(
 	db *pgx.Conn,
 ) func(context.Context, instrument.ConfigReadEvent) error {
@@ -27,20 +27,20 @@ func OnConfigRead(
 	}
 }
 
-// OnTimeRead TODO
-func OnTimeRead(
-	db *pgx.Conn,
-) func(context.Context, instrument.TimeReadEvent) error {
-	return func(ctx context.Context, event instrument.TimeReadEvent) error {
-		ctag, err := db.Exec(
-			ctx,
-			"INSERT INTO configs(instrument_id,station_number) VALUES $1, $2",
-			event.AggregateID,
-			event.Payload.Config.StationNumber,
-		)
-		if err != nil {
-			return err
-		}
-		return nil
-	}
-}
+// // OnTimeRead TODO
+// func OnTimeRead(
+// 	db *pgx.Conn,
+// ) func(context.Context, instrument.TimeReadEvent) error {
+// 	return func(ctx context.Context, event instrument.TimeReadEvent) error {
+// 		_, err := db.Exec(
+// 			ctx,
+// 			"INSERT INTO configs(instrument_id,station_number) VALUES $1, $2",
+// 			event.InstrumentID,
+// 			event.StationNumber,
+// 		)
+// 		if err != nil {
+// 			return err
+// 		}
+// 		return nil
+// 	}
+// }
