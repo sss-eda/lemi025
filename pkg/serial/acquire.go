@@ -170,6 +170,7 @@ func Acquire(
 			case stopSystem:
 			case startSystem:
 			case checkFLASH:
+				0
 			case setDACx:
 			case setDACy:
 			case setDACz:

@@ -29,6 +29,10 @@ func main() {
 	}
 	defer port.Close()
 
+	lemi025.Control(
+		serial.Controller(port),
+	)
+
 	serial.Listen(port)(
 		nats.controller,
 		&lemi025.AcquireRequest{},
