@@ -4,7 +4,10 @@ import (
 	"log"
 
 	natsio "github.com/nats-io/nats.go"
-	"github.com/sss-eda/lemi025"
+	"github.com/sss-eda/lemi025/internal/domain/usecases/acquire"
+	"github.com/sss-eda/lemi025/internal/domain/usecases/readconfig"
+	"github.com/sss-eda/lemi025/pkg/jetstream"
+	"github.com/sss-eda/lemi025/pkg/serial"
 	tarm "github.com/tarm/serial"
 )
 
@@ -29,13 +32,45 @@ func main() {
 	}
 	defer port.Close()
 
-	lemi025.Control(
-		serial.Controller(port),
+	sub1, err := js.Subscribe(
+		"dev.lemi025.*.readconfig",
+		jetstream.HandleQuery( // returns func(*natsio.Msg)
+			readconfig.Query( // returns func(lemi025.ResponseWriter, lemi025.ReadConfigRequest)
+				serial.ConfigReaderFunc(port), // returns func() error
+			),
+			func(response *readconfig.Response) []byte {
+				return []byte{}
+			},
+		),
+	)
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer sub1.Unsubscribe()
+
+	sub2, err := js.Subscribe(
+		"dev.lemi025.*.readtime",
+		jetstream.HandleQuery( // returns func(*natsio.Msg)
+			readtime.Query( // returns func(lemi025.ResponseWriter, lemi025.ReadConfigRequest)
+				serial.TimeReaderFunc(port), // returns func() error
+			),
+			func(response *readtime.Response) []byte {
+				return []byte{}
+			},
+		),
+	)
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer sub2.Unsubscribe()
+
+	acquire.Command(
+		serial.Acquire(port) // returns func()
 	)
 
-	serial.Listen(port)(
-		nats.controller,
-		&lemi025.AcquireRequest{},
-	) // returns func(responsewriter, request)
+	// acquirer := serial.Acquire(port)
 
+	// acquirer(
+	// 	acquire.Command(js, js),
+	// )
 }

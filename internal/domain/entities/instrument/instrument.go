@@ -1,14 +1,8 @@
 package instrument
 
-// InstrumentID TODO
-type InstrumentID interface {
-	Equals(InstrumentID) bool
-	String() string
-}
-
 // Instrument TODO
 type Instrument struct {
-	ID            InstrumentID
+	ID            ID
 	Config        Config
 	Time          Time
 	Coefficients1 Coefficients1
@@ -17,6 +11,12 @@ type Instrument struct {
 	// FLASHData     *FLASHData
 	// DACData       *DACData
 	changes []Event
+}
+
+// Repository TODO
+type Repository interface {
+	Load(ID) (*Instrument, error)
+	Save(ID, Event) error
 }
 
 // New TODO

@@ -1,18 +1,31 @@
 package readconfig
 
-import "context"
+import "log"
 
-// UseCase - This is where all of the business logic needs to go for this
-// usecase!
+// Query TODO
 func Query(
-	gateway func() error,
-) func(context.Context, Request) (Response, error) {
-	return func(ctx context.Context, request Request) (Response, error) {
-		err := gateway()
+	readconfig func() error,
+) func(func(*Response) error, *Request) {
+	return func(w func(*Response) error, r *Request) {
+		err := readconfig()
+		err = w(&Response{
+			Error: err,
+		})
 		if err != nil {
-			return Response{}, err
+			log.Println(err)
 		}
-
-		return Response{}, nil
 	}
 }
+
+// Request TODO
+type Request struct{}
+
+// Response TODO
+type Response struct {
+	Error error
+}
+
+// // Error TODO
+// type Error struct {
+// 	msg string
+// }

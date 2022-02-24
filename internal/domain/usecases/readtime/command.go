@@ -6,9 +6,13 @@ import (
 
 // CommandMessage TODO
 type CommandMessage struct {
-	InstrumentID  instrument.ID
-	StationType   string
-	StationNumber instrument.StationNumber
+	InstrumentID instrument.ID
+	Year         instrument.Year
+	Month        instrument.Month
+	Day          instrument.Day
+	Hour         instrument.Hour
+	Minute       instrument.Minute
+	Second       instrument.Second
 }
 
 // Command TODO
@@ -20,9 +24,13 @@ func Command(
 		if err != nil {
 			return err
 		}
-		event, err := instrument.Config.Read(
-			msg.StationType,
-			msg.StationNumber,
+		event, err := instrument.Time.Read(
+			msg.Year,
+			msg.Month,
+			msg.day,
+			msg.Hour,
+			msg.Minute,
+			msg.Second,
 		)
 		err = instruments.Save(msg.InstrumentID, event)
 		if err != nil {

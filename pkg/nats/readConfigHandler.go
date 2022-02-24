@@ -1,7 +1,7 @@
 package nats
 
-// ReadConfigHandler TODO
-// func ReadConfigHandler(
+// // ReadConfigHandler TODO
+// func ReadConfigHandleFunc(
 // 	nc *nats.Conn,
 // ) func(readconfig.Gateway) readconfig.Handler {
 // 	return func(gateway readconfig.Gateway) (readconfig.Handler, error) {
