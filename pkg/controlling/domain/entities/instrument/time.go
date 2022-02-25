@@ -90,3 +90,21 @@ func (time *Time) OnSet(
 	time.Minute = event.Minute
 	time.Second = event.Second
 }
+
+// Year TODO
+type Year uint16
+
+// Month TODO
+type Month uint8
+
+// Day TODO
+type Day uint8
+
+// Hour TODO
+type Hour uint8
+
+// Minute TODO
+type Minute uint8
+
+// Second TODO
+type Second uint8

@@ -36,7 +36,9 @@ const (
 // Acquire TODO
 func Acquire(
 	reader io.Reader,
-) func(w acquire.ResponseWriterFunc, r *acquire.Request) {
+	handleReadConfig func(readconfig.Command) error,
+	handleReadTime func(readtime.Command) error,
+) error { // Where request specify which event to respond to
 	scanner := bufio.NewScanner(reader)
 	scanner.Split(bufio.ScanBytes)
 
@@ -192,6 +194,7 @@ func Acquire(
 	}
 
 	return func(w acquire.ResponseWriterFunc, r *acquire.Request) {
+
 		subscribers = append(subscribers, subscriber)
 	}
 }

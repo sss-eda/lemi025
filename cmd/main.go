@@ -1,54 +1,38 @@
 package main
 
-// // The listing and controlling will be in two separate
-// func main() {
-// 	nc, err := natsio.Connect("nats://sansa.dev:4222")
-// 	if err != nil {
-// 		log.Fatal(err)
-// 	}
-// 	defer nc.Close()
+import (
+	"log"
 
-// 	js, err := nc.JetStream()
-// 	if err != nil {
-// 		log.Fatal(err)
-// 	}
+	natsio "github.com/nats-io/nats.go"
+	"github.com/sss-eda/lemi025/internal/domain/usecases/readtime"
+	"github.com/sss-eda/lemi025/pkg/jetstream"
+	"github.com/sss-eda/lemi025/pkg/nats"
+)
 
-// 	port, err := tarm.OpenPort(&tarm.Config{
-// 		Name: "COM6",
-// 		Baud: 115200,
-// 	})
-// 	if err != nil {
-// 		log.Fatal(err)
-// 	}
-// 	defer port.Close()
+// The listing and controlling will be in two separate
+func main() {
+	nc, err := natsio.Connect("nats://sansa.dev:4222")
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer nc.Close()
 
-// 	// This is very nice, everything is so nicely decoupled and everything.
-// 	// It might be nice to package together a bunch of them into applications.
-// 	// sub, err := nc.Subscribe(
-// 	// 	"lemi025.1.queries.readconfig",
-// 	// 	nats.Handle(
-// 	// 		controlling.ReadConfig(
-// 	// 			serial.ConfigReader(port), // returns func() error
-// 	// 		), // returns func(request) response
-// 	// 		newencoding.Serializer(),
-// 	// 	),
-// 	// )
-// 	// if err != nil {
-// 	// 	log.Fatal(err)
-// 	// }
-// 	// defer sub.Unsubscribe()
+	js, err := nc.JetStream()
+	if err != nil {
+		log.Fatal(err)
+	}
 
-// 	controller := serial.Run(port)
-// 	controller(eventstore)
-
-// 	http.HandleFunc(
-// 		"/config",
-// 		rest.Handle(
-// 			getconfig.UseCase(
-// 				postgres.ConfigGetter(psqlConn),
-// 			),
-// 		),
-// 	)
-
-// 	log.Fatal(http.ListenAndServe(":8080", nil))
-// }
+	sub, err := nc.Subscribe(
+		"dev.lemi025.*.mutations.readconfig",
+		nats.HandleMutation( // returns func(*natsio.Msg)
+			readtime.Mutate( // returns func(lemi025.ResponseWriter, lemi025.ReadConfigRequest)
+				jetstream.Load(js), // returns func() error
+				jetstream.Save(js),
+			),
+		),
+	)
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer sub.Unsubscribe()
+}

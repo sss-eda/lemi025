@@ -7,10 +7,10 @@ type Instrument struct {
 	Time          Time
 	Coefficients1 Coefficients1
 	Coefficients2 Coefficients2
-	// GPSData       *GPSData
-	// FLASHData     *FLASHData
-	// DACData       *DACData
-	changes []Event
+	GPSData       *GPSData
+	FLASHData     *FLASHData
+	DACData       *DACData
+	changes       []Event
 }
 
 // Repository TODO

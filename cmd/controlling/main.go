@@ -4,7 +4,6 @@ import (
 	"log"
 
 	natsio "github.com/nats-io/nats.go"
-	"github.com/sss-eda/lemi025/internal/domain/usecases/acquire"
 	"github.com/sss-eda/lemi025/internal/domain/usecases/readconfig"
 	"github.com/sss-eda/lemi025/pkg/jetstream"
 	"github.com/sss-eda/lemi025/pkg/serial"
@@ -64,9 +63,20 @@ func main() {
 	}
 	defer sub2.Unsubscribe()
 
-	acquire.Command(
-		serial.Acquire(port) // returns func()
+	acquirer := serial.Acquire(port)
+	acquirer.Subscribe(func(msg readconfig.CommandMessage) {
+
+	})
+
+	HandleCommand(
+		acquire.Command(
+			serial.Acquire(),
+		)
 	)
+
+	// serial.Acquire(
+	// 	port,
+	// ) // returns func()
 
 	// acquirer := serial.Acquire(port)
 

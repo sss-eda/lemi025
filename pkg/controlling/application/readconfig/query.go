@@ -17,6 +17,9 @@ func Query(
 	}
 }
 
+// QueryFunc TODO
+type QueryFunc[Response, Request any] func(func(*Response) error, *Request) error
+
 // Request TODO
 type Request struct{}
 

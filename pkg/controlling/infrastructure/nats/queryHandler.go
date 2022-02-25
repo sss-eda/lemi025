@@ -1,4 +1,4 @@
-package jetstream
+package nats
 
 import (
 	"encoding/json"
@@ -14,14 +14,12 @@ type Response interface {
 }
 
 type Request interface {
-	readconfig.Request |
-		readtime.Request
+	readconfig.Request | readtime.Request
 }
 
 // HandleQuery TODO
 func HandleQuery[ResponseType Response, RequestType Request](
 	handle func(func(*ResponseType) error, *RequestType),
-	serialise func(*ResponseType) []byte,
 ) func(*nats.Msg) {
 	return func(msg *nats.Msg) {
 		var request RequestType
@@ -32,7 +30,11 @@ func HandleQuery[ResponseType Response, RequestType Request](
 		}
 		handle(
 			func(response *ResponseType) error {
-				return msg.Respond(serialise(response))
+				data, err := json.Marshal(response)
+				if err != nil {
+					return err
+				}
+				return msg.Respond(data)
 			},
 			&request,
 		)
