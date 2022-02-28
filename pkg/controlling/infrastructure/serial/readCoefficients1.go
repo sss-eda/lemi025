@@ -4,17 +4,15 @@ import (
 	"io"
 )
 
-// ReadConfig TODO
-func ReadConfig(
+// ReadCoefficients1 TODO
+func ReadCoefficients1(
 	writer io.Writer,
 ) func() error {
 	return func() error {
-		buffer := make([]byte, 4)
+		buffer := make([]byte, 2)
 
 		buffer[0] = 0x3D // Token "=" indicating intention to send command
-		buffer[1] = 0x30 // Token "0" indicating command type: read config
-		buffer[2] = 0xFF // XX - Don't care
-		buffer[3] = 0xFF // XX - Don't care
+		buffer[1] = 0x34 // Token "4" indicating command type: read coefficients1
 
 		_, err := writer.Write(buffer)
 		return err

@@ -5,20 +5,10 @@ import (
 	"log"
 
 	"github.com/nats-io/nats.go"
-	"github.com/sss-eda/lemi025/internal/domain/usecases/readconfig"
-	"github.com/sss-eda/lemi025/internal/domain/usecases/readtime"
 )
 
-type Response interface {
-	readconfig.Response
-}
-
-type Request interface {
-	readconfig.Request | readtime.Request
-}
-
-// HandleQuery TODO
-func HandleQuery[ResponseType Response, RequestType Request](
+// QueryMsgHandler TODO
+func QueryMsgHandler(
 	handle func(func(*ResponseType) error, *RequestType),
 ) func(*nats.Msg) {
 	return func(msg *nats.Msg) {

@@ -1,4 +1,4 @@
-package datapoints
+package datapoint
 
 // Reading TODO
 type Reading struct {

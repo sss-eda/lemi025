@@ -5,12 +5,25 @@ type Mode int
 
 const (
 	// FLASH TODO
-	FLASH Mode = iota
+	FLASH Mode = iota + 1
 	// PC TODO
 	PC
 	// FLASHandPC TODO
 	FLASHandPC
 )
+
+func (mode Mode) String() string {
+	switch mode {
+	case FLASH:
+		return "FLASH"
+	case PC:
+		return "PC"
+	case FLASHandPC:
+		return "FLASH + PC"
+	default:
+		return "Invalid Mode"
+	}
+}
 
 // Mode1 TODO
 type Mode1 int

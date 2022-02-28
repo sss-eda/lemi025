@@ -4,7 +4,7 @@ import (
 	"context"
 
 	"github.com/jackc/pgx/v4"
-	"github.com/sss-eda/lemi025/internal/domain/entities/instrument"
+	"github.com/sss-eda/lemi025/pkg/instrument"
 )
 
 // OnConfigRead - But this is specific to listing. And that's the way it should

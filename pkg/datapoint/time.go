@@ -1,4 +1,4 @@
-package datapoints
+package datapoint
 
 // Time TODO
 type Time struct {

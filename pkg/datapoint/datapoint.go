@@ -1,7 +1,7 @@
-package datapoints
+package datapoint
 
-// DataPoint TODO
-type DataPoint struct {
+// Aggregate TODO
+type Aggregate struct {
 	id            ID
 	StationNumber uint8
 	Time          Time
@@ -19,4 +19,11 @@ type DataPoint struct {
 	VoltageUIN    uint8
 	StatusGPS     uint8
 	CheckSum      byte
+}
+
+// Add TODO
+func (aggregate *Aggregate) Add() AddedEvent {
+	return AddedEvent{
+		DataPoint: aggregate,
+	}
 }
