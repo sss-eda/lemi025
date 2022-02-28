@@ -8,7 +8,7 @@ import (
 
 	"github.com/jackc/pgx/v4"
 	natsio "github.com/nats-io/nats.go"
-	"github.com/sss-eda/lemi025/internal/domain/entities/instrument"
+	"github.com/sss-eda/lemi025/pkg/controlling/domain/entities/instrument"
 	"github.com/sss-eda/lemi025/pkg/listing/infrastructure/nats"
 	"github.com/sss-eda/lemi025/pkg/listing/infrastructure/postgres"
 )

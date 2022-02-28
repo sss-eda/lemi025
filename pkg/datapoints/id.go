@@ -1,4 +1,4 @@
-package datum
+package datapoints
 
 // ID TODO
 type ID interface {
