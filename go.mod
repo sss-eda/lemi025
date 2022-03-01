@@ -3,6 +3,7 @@ module github.com/sss-eda/lemi025
 go 1.17
 
 require (
+	github.com/gorilla/mux v1.8.0
 	github.com/jackc/pgx/v4 v4.15.0
 	github.com/nats-io/nats.go v1.13.1-0.20220121202836-972a071d373d
 	github.com/sss-eda/encoding v0.2.1
