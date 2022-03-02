@@ -31,19 +31,21 @@ func main() {
 	// Let's say that the resource is the lemi itself. We can send commands to
 	// it via POST or PUT
 	router.HandleFunc(
-		"/",
+		"/commands/read-config",
 		rest.HandleQuery( // returns http.HandlerFunc
 			controlling.Query( // This might be usefull in terms of directing
 				serial.ReadConfig(port), // returns
 				serial.ReadTime(port),
 				serial.SetTime(port),
-				serial.SetCoefficients1(port),
-				serial.ReadCoefficients1(port),
-				serial.SetCoefficients2(port),
-				serial.ReadCoefficients2(port),
 			),
 		),
 	).Methods("PATCH")
+
+	nats.CommandDispatcher(
+		controlling.Subscribe(
+			serial.Acquire(port),
+		),
+	)
 
 	// This is if we want to use NATS instead of http.
 	// sub1, err := js.Subscribe(

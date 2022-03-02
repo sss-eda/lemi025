@@ -1,4 +1,4 @@
-package readconfig
+package acquire
 
 // Response TODO
 type Response struct{}
