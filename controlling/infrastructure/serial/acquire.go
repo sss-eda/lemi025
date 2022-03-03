@@ -1,34 +1,26 @@
 package serial
 
-import (
-	"bufio"
-	"fmt"
-	"io"
+// // Acquire TODO
+// func Acquire(
+// 	reader io.Reader,
+// ) acquire.HandlerFunc {
+// 	scanner := bufio.NewScanner(reader)
+// 	scanner.Split(bufio.ScanBytes)
 
-	"github.com/sss-eda/lemi025/controlling/application/acquire"
-)
+// 	for scanner.Scan() {
+// 		b := scanner.Bytes()[0]
+// 		switch b {
+// 		case 0x4C:
+// 			respond(&acquire.Response{})
+// 		default:
+// 			return fmt.Errorf(":-(")
+// 		}
+// 	}
 
-// Acquire TODO
-func Acquire(
-	reader io.Reader,
-) acquire.HandlerFunc {
-	scanner := bufio.NewScanner(reader)
-	scanner.Split(bufio.ScanBytes)
+// 	return func(respond func(*acquire.Response) error, request *acquire.Request) error {
 
-	for scanner.Scan() {
-		b := scanner.Bytes()[0]
-		switch b {
-		case 0x4C:
-			respond(&acquire.Response{})
-		default:
-			return fmt.Errorf(":-(")
-		}
-	}
-
-	return func(respond func(*acquire.Response) error, request *acquire.Request) error {
-
-	}
-}
+// 	}
+// }
 
 // type state int
 

@@ -6,6 +6,8 @@ import (
 	"github.com/gorilla/mux"
 	natsio "github.com/nats-io/nats.go"
 	"github.com/sss-eda/lemi025/controlling"
+	"github.com/sss-eda/lemi025/controlling/infrastructure/http/rest"
+	"github.com/sss-eda/lemi025/controlling/infrastructure/jetstream"
 	"github.com/sss-eda/lemi025/controlling/infrastructure/serial"
 	tarm "github.com/tarm/serial"
 )
@@ -17,6 +19,11 @@ func main() {
 	}
 	defer nc.Close()
 
+	js, err := nc.JetStream()
+	if err != nil {
+		log.Fatal(err)
+	}
+
 	port, err := tarm.OpenPort(&tarm.Config{
 		Name: "COM6",
 		Baud: 115200,
@@ -26,41 +33,32 @@ func main() {
 	}
 	defer port.Close()
 
-	router := mux.NewRouter()
+	// instrument := controlling.Instrument{}
 
-	// Let's say that the resource is the lemi itself. We can send commands to
-	// it via POST or PUT
-	router.HandleFunc(
+	commandRouter := mux.NewRouter()
+
+	commandRouter.HandleFunc(
 		"/commands/read-config",
-		rest.HandleQuery( // returns http.HandlerFunc
-			controlling.Query( // This might be usefull in terms of directing
+		rest.HandleCommand( // returns http.HandlerFunc
+			controlling.ExecuteCommand( // This might be usefull in terms of directing
 				serial.ReadConfig(port), // returns
-				serial.ReadTime(port),
-				serial.SetTime(port),
 			),
 		),
-	).Methods("PATCH")
+	).Methods("POST")
 
-	nats.CommandDispatcher(
-		controlling.Subscribe(
-			serial.Acquire(port),
+	commandRouter.HandleFunc(
+		"/commands/read-time",
+		rest.CommandHandlerFunc( // returns http.HandlerFunc
+			controlling.HandleCommands( // This might be usefull in terms of directing
+				serial.ReadTime(port), // returns func(Command) error
+			),
+		),
+	).Methods("POST")
+
+	serial.Acquire(
+		port,
+		controlling.EventHandlerFunc(
+			jetstream.EventDispatcher(js), // func(Event)
 		),
 	)
-
-	// This is if we want to use NATS instead of http.
-	// sub1, err := js.Subscribe(
-	// 	"dev.lemi025.1.controlling.queries",
-	// 	nats.QueryMsgHandler( // returns func(*natsio.Msg)
-	// 		controlling.Query( // returns func(lemi025.ResponseWriter, lemi025.ReadConfigRequest)
-	// 			serial.ConfigReaderFunc(port), // returns func() error
-	// 		),
-	// 		func(response *readconfig.Response) []byte {
-	// 			return []byte{}
-	// 		},
-	// 	),
-	// )
-	// if err != nil {
-	// 	log.Fatal(err)
-	// }
-	// defer sub1.Unsubscribe()
 }

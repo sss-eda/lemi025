@@ -1,33 +1,51 @@
 package rest
 
-import (
-	"net/http"
-
-	"github.com/sss-eda/lemi025/controlling/application/readconfig"
-	"github.com/sss-eda/lemi025/controlling/application/readtime"
-	"github.com/sss-eda/lemi025/controlling/application/settime"
-)
-
-// Request TODO
-type Request struct {
-	Type    string
-	Message []byte
-}
-
-// // Response TODO
-// type Response struct {
-// 	Error error
+// // QueryRequest TODO
+// type QueryRequest[Query controlling.Queries] struct {
+// 	Query Query `json:"query"`
 // }
 
-// HandleQueries - Handle an incoming query
-//   -> The responses for any control query will look the same.
-//   -> The requests will look different depending on the usecase.
-func HandleQueries(
-	readConfig readconfig.HandlerFunc,
-	readTime readtime.HandlerFunc,
-	setTime settime.HandlerFunc,
-) func(http.ResponseWriter, *http.Request) {
-	return func(w http.ResponseWriter, r *http.Request) {
-		r.Header.
-	}
-}
+// // QuerySuccessResponse TODO
+// type QuerySuccessResponse struct{}
+
+// // QueryFailureResponse TODO
+// type QueryFailureResponse struct {
+// 	Error error `json:"error"`
+// }
+
+// // HandleQuery TODO
+// func HandleQuery[Query controlling.Queries](
+// 	handle func(*Query) error,
+// ) http.HandlerFunc {
+// 	return func(w http.ResponseWriter, r *http.Request) {
+// 		request := QueryRequest[Query]{}
+
+// 		err := json.NewDecoder(r.Body).Decode(&request)
+// 		if err != nil {
+// 			response, err2 := json.Marshal(CommandFailureResponse{
+// 				Error: err,
+// 			})
+// 			if err2 != nil {
+// 				log.Println(err2)
+// 			}
+// 			w.Write(response)
+// 			w.WriteHeader(http.StatusBadRequest)
+// 		}
+
+// 		err = handle(&request.Query)
+// 		if err != nil {
+// 			response, err2 := json.Marshal(CommandFailureResponse{
+// 				Error: err,
+// 			})
+// 			if err2 != nil {
+// 				log.Println(err2)
+// 			}
+// 			w.Write(response)
+// 			w.WriteHeader(http.StatusInternalServerError)
+// 		}
+
+// 		response, err := json.Marshal(CommandSuccessResponse{})
+// 		w.Write(response)
+// 		w.WriteHeader(http.StatusOK)
+// 	}
+// }
