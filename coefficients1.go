@@ -1,4 +1,4 @@
-package instrument
+package lemi025
 
 // Mode TODO
 type Mode int

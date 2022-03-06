@@ -1,11 +1,37 @@
 package controlling
 
-import "github.com/sss-eda/lemi025/controlling/application/acquire"
-
 // Events TODO
 type Events interface {
-	acquire.ConfigReadEvent | acquire.TimeReadEvent | acquire.TimeSetEvent
+	ConfigReadEvent | TimeReadEvent | TimeSetEvent | DataFrameAcquiredEvent
 }
 
-// EventHandlerFunc TODO
-type EventHandlerFunc[Event Events] func(*Event)
+// // EventHandlerFunc TODO
+// type EventHandlerFunc[Event Events] func(*Event)
+
+// ConfigReadEvent TODO
+type ConfigReadEvent struct {
+	StationNumber uint8
+}
+
+// TimeReadEvent TODO
+type TimeReadEvent struct {
+	Year   uint16
+	Month  uint8
+	Day    uint8
+	Hour   uint8
+	Minute uint8
+	Second uint8
+}
+
+// TimeSetEvent TODO
+type TimeSetEvent struct {
+	Year   uint16
+	Month  uint8
+	Day    uint8
+	Hour   uint8
+	Minute uint8
+	Second uint8
+}
+
+// DataFrameAcquiredEvent TODO
+type DataFrameAcquiredEvent struct{}

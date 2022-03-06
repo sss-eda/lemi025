@@ -1,5 +1,7 @@
 package instrument
 
+import "github.com/sss-eda/lemi025/controlling"
+
 // Instrument TODO
 type Instrument struct {
 	ID            ID
@@ -11,6 +13,15 @@ type Instrument struct {
 	FLASHData     *FLASHData
 	DACData       *DACData
 	changes       []Event
+}
+
+// ReadConfig TODO
+func (instrument *Instrument) ReadConfig(
+	execute func(*controlling.ReadConfigCommand) error,
+) func(*controlling.ReadConfigCommand) error {
+	return func(command *controlling.ReadConfigCommand) error {
+		return execute(command)
+	}
 }
 
 // Repository TODO
