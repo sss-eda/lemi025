@@ -2,15 +2,13 @@ package listing
 
 import (
 	"context"
-
-	"github.com/sss-eda/lemi025/instrument"
 )
 
 // GetInstrumentByID TODO
 func GetInstrumentByID(
 	repo Repository,
-) func(context.Context, instrument.ID) (*Instrument, error) {
-	return func(ctx context.Context, id instrument.ID) (*Instrument, error) {
+) func(context.Context, InstrumentID) (*Instrument, error) {
+	return func(ctx context.Context, id InstrumentID) (*Instrument, error) {
 		return repo.GetInstrumentByID(ctx, id)
 	}
 }

@@ -1,4 +1,4 @@
-package instrument
+package lemi025
 
 // FLASHData TODO
 type FLASHData struct {

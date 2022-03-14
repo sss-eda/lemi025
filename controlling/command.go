@@ -1,7 +1,5 @@
 package controlling
 
-import "github.com/sss-eda/lemi025"
-
 // ReadConfigCommand TODO
 type ReadConfigCommand struct{}
 
@@ -20,7 +18,8 @@ type SetTimeCommand struct {
 
 // SetCoefficients1Command TODO
 type SetCoefficients1Command struct {
-	Mode lemi025.Mode
+	Mode Mode // Yes, this would make sense outside of this module. But
+	// we know that we're in the lemi025 module/context. So this is redundant.
 }
 
 // ReadCoefficients1Command TODO

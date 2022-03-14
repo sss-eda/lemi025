@@ -1,4 +1,4 @@
-package instrument
+package lemi025
 
 // DACData TODO
 type DACData struct {

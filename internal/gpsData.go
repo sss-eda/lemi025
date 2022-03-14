@@ -1,4 +1,4 @@
-package instrument
+package lemi025
 
 // GPSData TODO
 type GPSData struct {

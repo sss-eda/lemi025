@@ -1,4 +1,4 @@
-package instrument
+package lemi025
 
 import "github.com/sss-eda/lemi025/controlling"
 

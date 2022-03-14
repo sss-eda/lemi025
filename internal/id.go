@@ -1,4 +1,4 @@
-package instrument
+package lemi025
 
 // ID TODO
 type ID interface {

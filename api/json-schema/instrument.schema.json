@@ -1,0 +1,41 @@
+{
+    "$schema": "https://json-schema.org/draft-07/schema",
+    "$id": "https://sansa.dev/instrument.schema.json",
+    "title": "Instrument",
+    "description": "This document records the state of an instrument",
+    "type": "object",
+    "properties": {
+        "id": {
+            "description": "A unique identifier for an instrument",
+            "type": "string"
+        },
+        "name": {
+            "description": "Full name of the employee",
+            "type": "string"
+        },
+        "age": {
+            "description": "Age of the employee",
+            "type": "number"
+        },
+        "hobbies": {
+            "description": "Hobbies of the employee",
+            "type": "object",
+            "properties": {
+                "indoor": {
+                    "type": "array",
+                    "items": {
+                        "description": "List of indoor hobbies",
+                        "type": "string"
+                    }
+                },
+                "outdoor": {
+                    "type": "array",
+                    "items": {
+                        "description": "List of outdoor hobbies",
+                        "type": "string"
+                    }
+                }
+            }
+        }
+    }
+}

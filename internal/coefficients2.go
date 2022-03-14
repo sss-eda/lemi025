@@ -1,4 +1,4 @@
-package instrument
+package lemi025
 
 // Coefficients2 TODO
 type Coefficients2 struct {

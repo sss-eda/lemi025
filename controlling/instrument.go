@@ -11,13 +11,3 @@ func (instrument *Instrument) ReadConfig(
 		return configReader(command)
 	}
 }
-
-// Query TODO
-func (instrument *Instrument) Query() error {
-
-}
-
-// Subscribe TODO
-func (instrument *Instrument) Subscribe() error {
-
-}

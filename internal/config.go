@@ -1,4 +1,4 @@
-package instrument
+package lemi025
 
 // Config TODO
 type Config struct {
