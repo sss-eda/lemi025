@@ -18,8 +18,7 @@ type SetTimeCommand struct {
 
 // SetCoefficients1Command TODO
 type SetCoefficients1Command struct {
-	Mode Mode // Yes, this would make sense outside of this module. But
-	// we know that we're in the lemi025 module/context. So this is redundant.
+	Mode Mode
 }
 
 // ReadCoefficients1Command TODO
@@ -27,6 +26,9 @@ type ReadCoefficients1Command struct{}
 
 // SetCoefficients2Command TODO
 type SetCoefficients2Command struct {
+	Ax1 float32
+	Ay1 float32
+	Az1 float32
 }
 
 // Commands TODO

@@ -150,6 +150,14 @@ func Acquire(
 					next = idle
 				}
 			case setCoefficients1:
+				if len(buffer) < 8 {
+					buffer = append(buffer, b)
+				}
+				err := onTimeSet(buffer)
+				if err != nil {
+					log.Println(err)
+					next = idle
+				}
 			case readCoefficients1:
 			case setCoefficients2:
 			case readCoefficients2:
@@ -165,6 +173,4 @@ func Acquire(
 			return ctx.Err()
 		}
 	}
-
-	return nil
 }

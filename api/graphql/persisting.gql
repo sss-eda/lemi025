@@ -1,0 +1,24 @@
+type Config {
+    StationName: String!
+}
+
+type Time {
+    Year: Year!
+    Month: Month!
+    Day: Day!
+    Hour: Hour!
+    Minute: Minute!
+    Second: Second!
+}
+
+scalar Year
+
+scalar Month
+
+scalar Day
+
+scalar Hour
+
+scalar Minute
+
+scalar Second

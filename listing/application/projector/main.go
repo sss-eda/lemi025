@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"encoding/json"
+	"fmt"
 	"log"
 	"os"
 
@@ -11,6 +12,8 @@ import (
 	"github.com/sss-eda/lemi025/listing"
 	"github.com/sss-eda/lemi025/listing/infrastructure/nats"
 	"github.com/sss-eda/lemi025/listing/infrastructure/postgres"
+	"go.mongodb.org/mongo-driver/mongo"
+	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
 const (
@@ -21,16 +24,22 @@ const (
 func main() {
 	storageType, ok := os.LookupEnv(envStorageType)
 	if !ok {
+		// If the Storage Type environment variable is empty, use postgres as
+		// default storage type.
 		storageType = "postgres"
 	}
-	storageType := os.Getenv("STORAGE_TO_USE")
-	serverType := os.Getenv("SERVER_TO_USE")
+	serverType, ok := os.LookupEnv(envServerType)
+	if !ok {
+		// If the Server Type environment variable is empty, use openapi as
+		// default server type.
+		serverType = "openapi"
+	}
 
 	var storage listing.Repository
 	var server listing.Server
 
 	switch storageType {
-	case "", "postgres":
+	case "postgres":
 		postgresHost := os.Getenv("POSTGRES_HOST")
 		postgresPort := os.Getenv("POSTGRES_PORT")
 		postgresUser := os.Getenv("POSTGRES_USER")
@@ -47,8 +56,26 @@ func main() {
 
 		storage := postgres.NewListingRepository(db)
 	case "mongodb":
+		// Set client options
+		clientOptions := options.Client().ApplyURI("mongodb://localhost:27017")
+
+		// Connect to MongoDB
+		client, err := mongo.Connect(context.TODO(), clientOptions)
+
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		// Check the connection
+		err = client.Ping(context.TODO(), nil)
+
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		fmt.Println("Connected to MongoDB!")
 	default:
-		log.Fatal
+		log.Fatalf("invalid storage type: %s", storageType)
 	}
 
 	nc, err := natsio.Connect("nats://sansa.dev:4222, nats://sansa.dev:4223, nats://sansa.dev:4224")
