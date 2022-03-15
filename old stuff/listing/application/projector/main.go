@@ -78,7 +78,9 @@ func main() {
 		log.Fatalf("invalid storage type: %s", storageType)
 	}
 
-	nc, err := natsio.Connect("nats://sansa.dev:4222, nats://sansa.dev:4223, nats://sansa.dev:4224")
+	nc, err := natsio.Connect(
+		"nats://sansa.dev:4222, nats://sansa.dev:4223, nats://sansa.dev:4224",
+	)
 	if err != nil {
 		log.Fatal(err)
 	}
