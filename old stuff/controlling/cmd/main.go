@@ -87,7 +87,7 @@ func main() {
 	func(event *controlling.ConfigReadEvent) {
 		js.Publish(
 			"dev.lemi025.1.events.configread",
-			instrument.OnTimeRead(), // Returns []byte
+			event, // Returns []byte
 		),
 	}
 

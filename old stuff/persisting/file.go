@@ -3,6 +3,8 @@ package persisting
 // File - Our projection
 type File struct{}
 
+type Writer interface{}
+
 // OnDataPointAcquired TODO
 func (file *File) OnDataPointAcquired(
 	event DataPointAcquiredEvent,
