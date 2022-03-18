@@ -1,47 +1,26 @@
 package lemi025
 
-import "time"
+// // Server TODO
+// type Server interface {
+// 	Run(config interface{}) error
+// }
 
-// Station TODO
-type Station interface {
-	ReadConfig() error
-	ReadTime() error
-	SetTime(time.Time) error
-}
+// // Client TODO
+// type Client interface {
+// 	ReadConfig(ReadConfigCommand) error
+// 	ReadTime(ReadTimeCommand) error
+// 	SetTime(SetTimeCommand) error
+// }
 
-// NewStation TODO
-func NewStation(
-	adapterType string,
-) (Station, error) {
-	var station Station
-	switch adapterType {
-	case "serial":
-		station = &serial.Station{}
-case "":
-}
+// // NewSerialClient TODO
+// func NewSerialClient(
+// 	config *SerialClientConfig,
+// ) (Client, error) {
 
-// StationNumber TODO
-type StationNumber uint8
+// }
 
-// StationRepository TODO
-type StationRepository interface {
-	RegisterStation(StationNumber, Station) error
-	GetStationByNumber(StationNumber) (Station, error)
-}
-
-// Transmitter TODO
-type Transmitter interface {
-	ReadConfig(ReadConfigCommand) error
-	ReadTime(ReadTimeCommand) error
-}
-
-// Receiver TODO
-type Receiver interface {
-	DataFrameAcquired(DataFrameAcquiredEvent) error
-	ConfigRead(ConfigReadEvent) error
-	TimeRead(TimeReadEvent) error
-}
-
-// Lister TODO
-type Lister interface {
-}
+// client, err := lemi025.NewSerialClient(&lemi025.SerialClientConfig{
+// 	Name: "COM5",
+// 	Baud: 115200,
+// })
+// client.ReadConfig(lemi025.ReadConfigCommand{})
