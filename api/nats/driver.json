@@ -1,9 +1,0 @@
-{
-    "readconfig": {
-        "subject": "lemi025.<sn>.commands.readconfig",
-        "message": {
-            "protocol": "protobuf",
-            "spec": "https://lemi025.sansa.dev/api/protobuf"
-        }
-    }
-}

@@ -1,19 +1,19 @@
 package lemi025
 
-// Command TODO
-func Command[C Commands](
-	command C,
-) error {
-	return nil
-}
+import "time"
 
 // Commands TODO
 type Commands interface {
 	ReadConfigCommand | ReadTimeCommand | SetTimeCommand
 }
 
+// ReadConfigCommand TODO
 type ReadConfigCommand struct{}
 
+// ReadTimeCommand TODO
 type ReadTimeCommand struct{}
 
-type SetTimeCommand struct{}
+// SetTimeCommand TODO
+type SetTimeCommand struct {
+	Time time.Time
+}
