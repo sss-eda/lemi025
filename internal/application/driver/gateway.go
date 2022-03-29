@@ -10,6 +10,7 @@ type Gateway interface {
 	ReadConfig() error
 	ReadTime() error
 	SetTime(time.Time) error
+	Acquire(chan<- Event)
 }
 
 type GatewayType int

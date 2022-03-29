@@ -32,7 +32,7 @@ func (application *Application) Run() error {
 	var server Server
 	switch application.Server {
 	case NATSServer:
-		server, err = nats.NewServer()
+		server, err = nats.NewServer(gateway)
 	default:
 		err = fmt.Errorf("unknown server type: %d", application.Server)
 	}
@@ -40,5 +40,5 @@ func (application *Application) Run() error {
 		return err
 	}
 
-	return nil
+	return server.Serve()
 }
