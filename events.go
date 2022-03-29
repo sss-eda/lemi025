@@ -1,7 +1,16 @@
 package lemi025
 
+// EventPayloads TODO
+type EventPayloads interface {
+	DatumAcquiredEventPayload | ConfigReadEventPayload | TimeReadEventPayload | TimeSetEventPayload
+}
+
+// DatumAcquiredEventPayload TODO
+type DatumAcquiredEventPayload struct{}
+
 // ConfigReadEventPayload TODO
 type ConfigReadEventPayload struct {
+	StationType   string
 	StationNumber uint8
 }
 
