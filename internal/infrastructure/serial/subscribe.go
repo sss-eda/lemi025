@@ -55,19 +55,16 @@ func Subscribe(
 			case acquireToken:
 				state = acquireToken
 			case readConfigToken:
-				if len(buffer) < 4 {
+				buffer = append(buffer, token)
+				if len(buffer) < 6 {
 					buffer = append(buffer, token)
 				}
-				event, err := newConfigReadEventPayload(buffer)
-				if err != nil {
-					buffer 
-				onConfigRead(ctx, )
-				state = idleToken
 			case readTimeToken:
 				if len(buffer) < 6 {
 					buffer = append(buffer, token)
 					continue
 				}
+				event, err := newTimeReadEventPayload(buffer)
 			}
 		}
 	}

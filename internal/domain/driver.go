@@ -6,5 +6,3 @@ type Driver interface {
 	ReadTime()
 	SetTime()
 }
-
-type 

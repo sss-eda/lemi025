@@ -57,15 +57,17 @@ func SetTime(
 
 		buffer[0] = sendToken
 		buffer[1] = setTimeToken
-		buffer[2] = byte(payload.Time.Year() - 2000)
-		buffer[3] = byte(payload.Time.Month())
-		buffer[4] = byte(payload.Time.Day())
-		buffer[5] = byte(payload.Time.Hour())
-		buffer[6] = byte(payload.Time.Minute())
-		buffer[7] = byte(payload.Time.Second())
+		buffer[2] = payload.Year
+		buffer[3] = payload.Month
+		buffer[4] = payload.Day
+		buffer[5] = payload.Hour
+		buffer[6] = payload.Minute
+		buffer[7] = payload.Second
 
 		_, err := port.Write(buffer)
 
 		return err
 	}
 }
+
+func 

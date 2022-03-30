@@ -1,31 +1,32 @@
 package serial
 
 import (
-	"bufio"
-	"context"
-	"io"
+	"fmt"
 
-	"github.com/sss-eda/lemi025"
+	"github.com/sss-eda/encoding/bcd"
 )
 
-// Listen TODO
-func Listen(
-	onConfigRead func(context.Context, *lemi025.ConfigReadEventPayload) error,
-	onTimeRead func(context.Context, *lemi025.TimeReadEventPayload) error,
-	onTimeSet func(context.Context, *lemi025.TimeSetEventPayload) error,
-) func(context.Context, io.Reader) error {
-	return func(ctx context.Context, port io.Reader) error {
-		scanner := bufio.NewScanner(port)
-		scanner.Split(bufio.ScanBytes)
+type configReadEvent struct {
+	stationType   string
+	stationNumber uint8
+}
 
-		for scanner.Scan() {
-			switch scanner.Bytes()[0] {
-			case 0x3F:
-			case 0x4C:
-			default:
-			}
-		}
-
-		return scanner.Err()
+func (event *configReadEvent) UnmarshalBinary(data []byte) error {
+	if len(data) != 5 {
+		return fmt.Errorf("unexpected data length: %v", len(data))
 	}
+
+	event.stationType = string(data[:4])
+	if event.stationType != "025 " {
+		event = nil
+		return fmt.Errorf("unexpected station type: %v", event.stationType)
+	}
+
+	event.stationNumber, err = bcd.Decode(data[4])
+	if err != nil {
+		event = nil
+		return fmt.Errorf("failed to decode station number: %w", err)
+	}
+
+	return nil
 }
