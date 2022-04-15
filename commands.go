@@ -1,10 +1,12 @@
 package lemi025
 
-import "fmt"
-
 // CommandPayloads TODO
 type CommandPayloads interface {
-	ReadConfigCommandPayload | ReadTimeCommandPayload | SetTimeCommandPayload
+	ReadConfigCommandPayload |
+		ReadTimeCommandPayload |
+		SetTimeCommandPayload |
+		SetCoefficients1CommandPayload |
+		ReadCoefficients1CommandPayload
 }
 
 // ReadConfigCommandPayload TODO
@@ -25,37 +27,12 @@ type SetTimeCommandPayload struct {
 
 // SetCoefficients1CommandPayload TODO
 type SetCoefficients1CommandPayload struct {
+	Mode Mode
+}
+
+// ReadCoefficients1CommandPayload TODO
+type ReadCoefficients1CommandPayload struct {
 	Mode  Mode
 	Uin   Uin
 	Mode1 Mode1
-}
-
-// Mode TODO
-type Mode byte
-
-const (
-	// FLASHMode TODO
-	FLASHMode Mode = 0x01
-	// PCMode TODO
-	PCMode Mode = 0x02
-	// FLASHandPCMode TODO
-	FLASHandPCMode Mode = 0x03
-)
-
-// Mode1 TODO
-type Mode1 byte
-
-const (
-	// MenuMode1 TODO
-	MenuMode1 Mode1 = 0x00
-	// RecordMode1 TODO
-	RecordMode1 Mode1 = 0x01
-)
-
-// Uin TODO
-type Uin uint8
-
-// String TODO
-func (uin Uin) String() string {
-	return fmt.Sprintf("%d", uin/10)
 }

@@ -70,4 +70,46 @@ func SetTime(
 	}
 }
 
-func 
+// SetCoefficients1 TODO
+func SetCoefficients1(
+	port io.Writer,
+) func(context.Context, *lemi025.SetCoefficients1CommandPayload) error {
+	return func(
+		ctx context.Context,
+		payload *lemi025.SetCoefficients1CommandPayload,
+	) error {
+		buffer := make([]byte, 4)
+
+		buffer[0] = sendToken
+		buffer[1] = setCoefficients1Token
+		buffer[2] = 0x00
+		buffer[3] = byte(payload.Mode)
+
+		_, err := port.Write(buffer)
+
+		return err
+	}
+}
+
+// ReadCoefficients1 TODO
+func ReadCoefficients1(
+	port io.Writer,
+) func(context.Context, *lemi025.ReadCoefficients1CommandPayload) error {
+	return func(
+		ctx context.Context,
+		payload *lemi025.ReadCoefficients1CommandPayload,
+	) error {
+		buffer := make([]byte, 6)
+
+		buffer[0] = sendToken
+		buffer[1] = readCoefficients1Token
+		buffer[2] = 0x00
+		buffer[3] = byte(payload.Mode)
+		buffer[4] = byte(payload.Uin)
+		buffer[5] = byte(payload.Mode1)
+
+		_, err := port.Write(buffer)
+
+		return err
+	}
+}

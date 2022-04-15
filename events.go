@@ -2,7 +2,10 @@ package lemi025
 
 // EventPayloads TODO
 type EventPayloads interface {
-	DatumAcquiredEventPayload | ConfigReadEventPayload | TimeReadEventPayload | TimeSetEventPayload
+	DatumAcquiredEventPayload |
+		ConfigReadEventPayload |
+		TimeReadEventPayload |
+		TimeSetEventPayload
 }
 
 // DatumAcquiredEventPayload TODO
