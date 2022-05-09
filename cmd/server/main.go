@@ -5,6 +5,7 @@ import (
 	"net/http"
 
 	natsio "github.com/nats-io/nats.go"
+	"github.com/sss-eda/lemi025"
 )
 
 func main() {
@@ -18,12 +19,8 @@ func main() {
 		log.Fatal(err)
 	}
 
-	eventsource, err := jetstream.NewEventSource(js)
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	handler, err := http.NewRESTHandler(eventsource)
+	// Listen at endpoint for new request. Publish to NATS.
+	http.Subscribe("lemi025/1/commands/readConfig", jetstream.Publish(js, lemi025.ReadConfig()))
 
 	log.Fatal(http.ListenAndServe(":8080", handler))
 }

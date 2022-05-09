@@ -7,14 +7,9 @@ import (
 	"github.com/sss-eda/lemi025"
 )
 
-// ReadConfig TODO
-func ReadConfig(
-	port io.Writer,
-) func(context.Context, *lemi025.ReadConfigCommandPayload) error {
-	return func(
-		ctx context.Context,
-		payload *lemi025.ReadConfigCommandPayload,
-	) error {
+// ReadConfigCommandHandler TODO
+func ReadConfigCommandHandler(port io.Writer) func(context.Context, *lemi025.ReadConfigCommandPayload) error {
+	return func(ctx context.Context, payload *lemi025.ReadConfigCommandPayload) error {
 		buffer := make([]byte, 2)
 
 		buffer[0] = sendToken
@@ -27,9 +22,7 @@ func ReadConfig(
 }
 
 // ReadTime TODO
-func ReadTime(
-	port io.Writer,
-) func(context.Context, *lemi025.ReadTimeCommandPayload) error {
+func ReadTime(port io.Writer) func(context.Context, *lemi025.ReadTimeCommandPayload) error {
 	return func(
 		ctx context.Context,
 		payload *lemi025.ReadTimeCommandPayload,
@@ -46,9 +39,7 @@ func ReadTime(
 }
 
 // SetTime TODO
-func SetTime(
-	port io.Writer,
-) func(context.Context, *lemi025.SetTimeCommandPayload) error {
+func SetTime(port io.Writer) func(context.Context, *lemi025.SetTimeCommandPayload) error {
 	return func(
 		ctx context.Context,
 		payload *lemi025.SetTimeCommandPayload,
@@ -71,9 +62,7 @@ func SetTime(
 }
 
 // SetCoefficients1 TODO
-func SetCoefficients1(
-	port io.Writer,
-) func(context.Context, *lemi025.SetCoefficients1CommandPayload) error {
+func SetCoefficients1(port io.Writer) func(context.Context, *lemi025.SetCoefficients1CommandPayload) error {
 	return func(
 		ctx context.Context,
 		payload *lemi025.SetCoefficients1CommandPayload,
@@ -92,9 +81,7 @@ func SetCoefficients1(
 }
 
 // ReadCoefficients1 TODO
-func ReadCoefficients1(
-	port io.Writer,
-) func(context.Context, *lemi025.ReadCoefficients1CommandPayload) error {
+func ReadCoefficients1(port io.Writer) func(context.Context, *lemi025.ReadCoefficients1CommandPayload) error {
 	return func(
 		ctx context.Context,
 		payload *lemi025.ReadCoefficients1CommandPayload,

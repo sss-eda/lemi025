@@ -1,5 +1,34 @@
 package lemi025
 
+// CommandKind TODO
+type CommandKind int
+
+const (
+	// ReadConfig TODO
+	ReadConfig CommandKind = iota
+	// ReadTime TODO
+	ReadTime
+	// SetTime TODO
+	SetTime
+)
+
+// Command TODO
+type Command interface {
+	Message
+	Kind() CommandKind
+}
+
+// BaseCommand TODO
+type BaseCommand struct {
+	BaseMessage
+	kind CommandKind
+}
+
+// Kind TODO
+func (command *BaseCommand) Kind() CommandKind {
+	return command.kind
+}
+
 // CommandPayloads TODO
 type CommandPayloads interface {
 	ReadConfigCommandPayload |
@@ -7,6 +36,12 @@ type CommandPayloads interface {
 		SetTimeCommandPayload |
 		SetCoefficients1CommandPayload |
 		ReadCoefficients1CommandPayload
+}
+
+// ReadConfigCommand TODO
+type ReadConfigCommand struct {
+	BaseCommand
+	payload ReadConfigCommandPayload
 }
 
 // ReadConfigCommandPayload TODO

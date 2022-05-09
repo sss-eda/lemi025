@@ -29,9 +29,10 @@ func main() {
 		log.Fatal(err)
 	}
 
-	nats.Subscribe(ctx, nc, "lemi025.1.commands.readConfig", json.Deserialize[lemi025.ReadConfigCommandPayload], serial.ReadConfig(port))
-	nats.Subscribe(ctx, nc, "lemi025.1.commands.readTime", json.Deserialize[lemi025.ReadTimeCommandPayload], serial.ReadTime(port))
-	nats.Subscribe(ctx, nc, "lemi025.1.commands.setTime", json.Deserialize[lemi025.SetTimeCommandPayload], serial.SetTime(port))
+	nats.Subscribe(ctx, nc, "lemi025.1.commands.readConfig", serial.ReadConfig(port))
+	// websocket.Subscribe(ctx, ws, "/lemi025/1/commands/readConfig", serial.ReadConfig(port))
+	nats.Subscribe(ctx, nc, "lemi025.1.commands.readTime", serial.ReadTime(port))
+	nats.Subscribe(ctx, nc, "lemi025.1.commands.setTime", serial.SetTime(port))
 
 	serial.Subscribe(ctx, port,
 		nats.Publish(nc, "lemi025.1.events.datumAcquired", json.Serialize[lemi025.DatumAcquiredEventPayload]),

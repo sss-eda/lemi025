@@ -1,13 +1,11 @@
 # LEMI-025
 
 ## Client
-If we want to write a golang client for the LEMI025 instrument, we should be able to get the functionality in a library style from github.com/sss-eda/lemi025.
+The client application can have a variety of cores:
+- driver (reader writer actual commands)
+- mock (checks only for validity of commands)
+- digital twin (mode instead of reader writer?)
 
-What do we need to be defined at this level?
-  - functions
-    * ReadConfig
-    * ReadTime
-    * SetTime
-  - types
-    * config
-    * time
+## Server
+The server application can have a variety of cores:
+- 

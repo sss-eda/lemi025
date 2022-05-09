@@ -2,6 +2,7 @@ package nats
 
 import (
 	"context"
+	"encoding/json"
 	"log"
 
 	natsio "github.com/nats-io/nats.go"
@@ -12,20 +13,20 @@ import (
 // as a library later in root of repo.
 
 // Subscribe TODO
-func Subscribe[Payload lemi025.CommandPayloads | lemi025.EventPayloads](
+func Subscribe[Payload lemi025.CommandPayloads](
 	ctx context.Context,
 	nc *natsio.Conn,
 	subject string,
-	deserialize func([]byte) (*Payload, error),
 	handle func(context.Context, *Payload) error,
 ) error {
 	sub, err := nc.Subscribe(subject, func(msg *natsio.Msg) {
-		payload, err := deserialize(msg.Data)
+		var payload Payload
+		err := json.Unmarshal(msg.Data, &payload)
 		if err != nil {
 			log.Println(err)
 			return
 		}
-		err = handle(ctx, payload)
+		err = handle(ctx, &payload)
 		if err != nil {
 			log.Println(err)
 		}
@@ -40,21 +41,21 @@ func Subscribe[Payload lemi025.CommandPayloads | lemi025.EventPayloads](
 	return ctx.Err()
 }
 
-// Send TODO
-func Send[Payload lemi025.CommandPayloads | lemi025.EventPayloads](
-	nc *natsio.Conn,
-	subject string,
-	serialize func(*Payload) ([]byte, error),
-) func(context.Context, *Payload) error {
-	return func(
-		ctx context.Context,
-		payload *Payload,
-	) error {
-		data, err := serialize(payload)
-		if err != nil {
-			return err
-		}
+// // Send TODO
+// func Send[Payload lemi025.CommandPayloads | lemi025.EventPayloads](
+// 	nc *natsio.Conn,
+// 	subject string,
+// 	serialize func(*Payload) ([]byte, error),
+// ) func(context.Context, *Payload) error {
+// 	return func(
+// 		ctx context.Context,
+// 		payload *Payload,
+// 	) error {
+// 		data, err := serialize(payload)
+// 		if err != nil {
+// 			return err
+// 		}
 
-		return nc.Publish(subject, data)
-	}
-}
+// 		return nc.Publish(subject, data)
+// 	}
+// }
