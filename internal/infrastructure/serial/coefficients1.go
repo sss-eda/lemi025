@@ -1,5 +1,6 @@
 package serial
 
+// Coefficients1 TODO
 type Coefficients1 struct {
 	Mode  uint8
 	Uin   uint8

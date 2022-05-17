@@ -7,6 +7,8 @@ import (
 	"github.com/sss-eda/encoding/bcd"
 )
 
+const timeFormat = "2006-01-02 15:04:05"
+
 // Timestamp TODO
 type Timestamp struct {
 	year   uint8
@@ -17,10 +19,23 @@ type Timestamp struct {
 	second uint8
 }
 
+// String TODO
+func (timestamp *Timestamp) String() string {
+	return fmt.Sprintf(
+		"20%02d-%02d-%02d %02d:%02d:%02d",
+		timestamp.year,
+		timestamp.month,
+		timestamp.day,
+		timestamp.hour,
+		timestamp.minute,
+		timestamp.second,
+	)
+}
+
 // MarshalBinary TODO
 func (timestamp *Timestamp) MarshalBinary() ([]byte, error) {
 	_, err := time.Parse(
-		"2006-01-02 15:04:05",
+		timeFormat,
 		fmt.Sprintf(
 			"20%02d-%02d-%02d %02d:%02d:%02d",
 			timestamp.year,
