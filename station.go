@@ -4,8 +4,9 @@ type Station interface {
 	// ReadConfig(ReadConfigCommandPayload) error
 	// ReadTime(ReadTimeCommandPayload) error
 	// SetTime(SetTimeCommandPaylaod) error
-	OnConfigRead(func(ConfigReadEventPayload))
-	OnTimeRead(func())
+	OnDataFrameAcquired(func(DataFrameAcquiredEvent))
+	OnConfigRead(func(ConfigReadEvent))
+	OnTimeRead(func(TimeReadEvent))
 }
 
 // // Station TODO
