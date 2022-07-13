@@ -1,13 +1,40 @@
 package lemi025
 
-type Station interface {
-	// ReadConfig(ReadConfigCommandPayload) error
-	// ReadTime(ReadTimeCommandPayload) error
-	// SetTime(SetTimeCommandPaylaod) error
-	OnDataFrameAcquired(func(DataFrameAcquiredEvent))
-	OnConfigRead(func(ConfigReadEvent))
-	OnTimeRead(func(TimeReadEvent))
+type Station struct {
+	number        StationNumber
+	time          Time
+	coefficients1 Coefficients1
+	coefficients2 Coefficients2
+	gpsData       GPSData
+	systemStatus  SystemStatus
+	flashData     FLASHData
+	dacX          DAC
+	dacY          DAC
+	dacZ          DAC
 }
+
+type CommandSender interface {
+	SendCommand(Command) error
+}
+
+type Command struct{}
+
+func (station *Station) ReadConfig(sender CommandSender) {
+	sender.SendCommand()
+}
+
+func (station *Station) ReadTime() {}
+
+func (station *Station) SetTime() {}
+
+// type Station interface {
+// 	// ReadConfig(ReadConfigCommandPayload) error
+// 	// ReadTime(ReadTimeCommandPayload) error
+// 	// SetTime(SetTimeCommandPaylaod) error
+// 	OnDataFrameAcquired(func(DataFrameAcquiredEvent))
+// 	OnConfigRead(func(ConfigReadEvent))
+// 	OnTimeRead(func(TimeReadEvent))
+// }
 
 // // Station TODO
 // type Station struct {
